@@ -11,8 +11,24 @@ import { LinearGradient } from "expo-linear-gradient";
 import { colors } from "../utils/colors";
 import { Feather } from "@expo/vector-icons";
 import Badge from "./ui/Badge";
+import { useNavigation } from "@react-navigation/native";
 
-const MealItem = ({ title, imageUrl, duration, complexity, affordability }) => {
+const MealItem = ({
+    id,
+    title,
+    imageUrl,
+    duration,
+    complexity,
+    affordability,
+}) => {
+    const navigation = useNavigation();
+
+    const selectMealItemHandler = () => {
+        navigation.navigate("mealDetails", {
+            mealId: id,
+        });
+    };
+
     return (
         <View style={styles.mealItemContainer}>
             <ImageBackground
@@ -28,6 +44,7 @@ const MealItem = ({ title, imageUrl, duration, complexity, affordability }) => {
                     <Pressable
                         style={styles.button}
                         android_ripple={{ color: "rgba(0,0,0,0.05)" }}
+                        onPress={selectMealItemHandler}
                     >
                         <View style={styles.innerContainer}>
                             <View style={styles.topViewConTainer}>
