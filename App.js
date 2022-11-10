@@ -7,11 +7,13 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import CategoriesScreen from "./screens/CategoriesScreen";
 import MealsOverviewScreen from "./screens/MealsOverviewScreen";
+import { colors } from "./utils/colors";
 
 export default function App() {
     const [fontsLoaded] = useFonts({
         "poppins-400": require("./assets/fonts/poppins/Poppins-Regular.ttf"),
-        "poppins-600": require("./assets/fonts/poppins/Poppins-Bold.ttf"),
+        "poppins-500": require("./assets/fonts/poppins/Poppins-Medium.ttf"),
+        "poppins-600": require("./assets/fonts/poppins/Poppins-SemiBold.ttf"),
     });
 
     useEffect(() => {
@@ -38,13 +40,27 @@ export default function App() {
             <StatusBar style="dark" />
             <View style={styles.rootContainer} onLayout={onLayoutRootView}>
                 <NavigationContainer>
-                    <Stack.Navigator>
+                    <Stack.Navigator
+                        screenOptions={{
+                            headerTitleStyle: {
+                                fontFamily: "poppins-500",
+                                fontSize: 15,
+                            },
+                            headerShadowVisible: false,
+                            contentStyle: {
+                                backgroundColor: "white",
+                            },
+                        }}
+                    >
                         <Stack.Screen
-                            name="Meals Categories"
+                            name="mealsCategories"
                             component={CategoriesScreen}
+                            options={{
+                                title: "Categories",
+                            }}
                         />
                         <Stack.Screen
-                            name="Meals Overview"
+                            name="mealsOverview"
                             component={MealsOverviewScreen}
                         />
                     </Stack.Navigator>
