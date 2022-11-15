@@ -8,24 +8,32 @@ import { MEALS } from "../data/dummy-data";
 import { CATEGORIES } from "../data/dummy-data";
 import { colors } from "../utils/colors";
 import List from "../component/List";
-import { BookmarkContext } from "../store/context/bookmark-context";
+import { useSelector, useDispatch } from "react-redux";
+import { addBookmark, removeBookmark } from "../store/redux/bookmark";
+// import { BookmarkContext } from "../store/context/bookmark-context";
 
 const capitalizeFirstLetter = (string) => {
     return string.charAt(0).toUpperCase() + string.slice(1);
 };
 
 const MealDetailsScreen = ({ route, navigation }) => {
-    const bookmarkContext = useContext(BookmarkContext);
+    // const bookmarkContext = useContext(BookmarkContext);
+    const bookmarkMealIds = useSelector((state) => state.bookmarkMeals.mealIds);
+    const dispatch = useDispatch();
+
     const mealId = route.params.mealId;
     const meal = MEALS.find((meal) => meal.id === mealId);
 
-    const isMealBookmark = bookmarkContext.id.includes(mealId);
+    // const isMealBookmark = bookmarkContext.id.includes(mealId);
+    const isMealBookmark = bookmarkMealIds.includes(mealId);
 
     const changeBookmarkStatusHandler = () => {
         if (isMealBookmark) {
-            bookmarkContext.removeBookmark(mealId);
+            // bookmarkContext.removeBookmark(mealId);
+            dispatch(removeBookmark({ id: mealId }));
         } else {
-            bookmarkContext.addBookmark(mealId);
+            // bookmarkContext.addBookmark(mealId);
+            dispatch(addBookmark({ id: mealId }));
         }
     };
 

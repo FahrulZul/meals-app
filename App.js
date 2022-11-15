@@ -12,7 +12,9 @@ import MealDetailsScreen from "./screens/MealDetailsScreen";
 import { colors } from "./utils/colors";
 import BookmarkScreen from "./screens/BookmarkScreen";
 import { Ionicons } from "@expo/vector-icons";
-import BookmarkContextProvider from "./store/context/bookmark-context";
+import { Provider } from "react-redux";
+import { store } from "./store/redux/store";
+// import BookmarkContextProvider from "./store/context/bookmark-context";
 
 export default function App() {
     const [fontsLoaded] = useFonts({
@@ -103,7 +105,8 @@ export default function App() {
         <>
             <StatusBar style="dark" />
             <View style={styles.rootContainer} onLayout={onLayoutRootView}>
-                <BookmarkContextProvider>
+                {/* <BookmarkContextProvider> */}
+                <Provider store={store}>
                     <NavigationContainer>
                         <Stack.Navigator screenOptions={stackScreenOptions}>
                             <Stack.Screen
@@ -123,7 +126,8 @@ export default function App() {
                             />
                         </Stack.Navigator>
                     </NavigationContainer>
-                </BookmarkContextProvider>
+                </Provider>
+                {/* </BookmarkContextProvider> */}
             </View>
         </>
     );
