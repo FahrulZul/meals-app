@@ -12,6 +12,7 @@ import MealDetailsScreen from "./screens/MealDetailsScreen";
 import { colors } from "./utils/colors";
 import BookmarkScreen from "./screens/BookmarkScreen";
 import { Ionicons } from "@expo/vector-icons";
+import BookmarkContextProvider from "./store/context/bookmark-context";
 
 export default function App() {
     const [fontsLoaded] = useFonts({
@@ -102,25 +103,27 @@ export default function App() {
         <>
             <StatusBar style="dark" />
             <View style={styles.rootContainer} onLayout={onLayoutRootView}>
-                <NavigationContainer>
-                    <Stack.Navigator screenOptions={stackScreenOptions}>
-                        <Stack.Screen
-                            name="drawer"
-                            component={DrawerNavigator}
-                            options={{
-                                headerShown: false,
-                            }}
-                        />
-                        <Stack.Screen
-                            name="mealsOverview"
-                            component={MealsOverviewScreen}
-                        />
-                        <Stack.Screen
-                            name="mealDetails"
-                            component={MealDetailsScreen}
-                        />
-                    </Stack.Navigator>
-                </NavigationContainer>
+                <BookmarkContextProvider>
+                    <NavigationContainer>
+                        <Stack.Navigator screenOptions={stackScreenOptions}>
+                            <Stack.Screen
+                                name="drawer"
+                                component={DrawerNavigator}
+                                options={{
+                                    headerShown: false,
+                                }}
+                            />
+                            <Stack.Screen
+                                name="mealsOverview"
+                                component={MealsOverviewScreen}
+                            />
+                            <Stack.Screen
+                                name="mealDetails"
+                                component={MealDetailsScreen}
+                            />
+                        </Stack.Navigator>
+                    </NavigationContainer>
+                </BookmarkContextProvider>
             </View>
         </>
     );

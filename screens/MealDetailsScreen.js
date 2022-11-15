@@ -1,5 +1,5 @@
 import { StatusBar } from "expo-status-bar";
-import { useLayoutEffect } from "react";
+import { useLayoutEffect, useContext } from "react";
 import { View, Text, Image, StyleSheet, ScrollView } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Ionicons } from "@expo/vector-icons";
@@ -8,14 +8,26 @@ import { MEALS } from "../data/dummy-data";
 import { CATEGORIES } from "../data/dummy-data";
 import { colors } from "../utils/colors";
 import List from "../component/List";
+import { BookmarkContext } from "../store/context/bookmark-context";
 
 const capitalizeFirstLetter = (string) => {
     return string.charAt(0).toUpperCase() + string.slice(1);
 };
 
 const MealDetailsScreen = ({ route, navigation }) => {
+    const bookmarkContext = useContext(BookmarkContext);
     const mealId = route.params.mealId;
     const meal = MEALS.find((meal) => meal.id === mealId);
+
+    const isMealBookmark = bookmarkContext.id.includes(mealId);
+
+    const changeBookmarkStatusHandler = () => {
+        if (isMealBookmark) {
+            bookmarkContext.removeBookmark(mealId);
+        } else {
+            bookmarkContext.addBookmark(mealId);
+        }
+    };
 
     useLayoutEffect(() => {
         navigation.setOptions({
@@ -31,12 +43,14 @@ const MealDetailsScreen = ({ route, navigation }) => {
             ),
             headerRight: () => (
                 <HeaderButton
-                    iconName="md-bookmark-outline"
-                    onPress={() => {}}
+                    iconName={
+                        isMealBookmark ? "md-bookmark" : "md-bookmark-outline"
+                    }
+                    onPress={changeBookmarkStatusHandler}
                 />
             ),
         });
-    }, [navigation]);
+    }, [navigation, changeBookmarkStatusHandler]);
 
     const mealCategory = CATEGORIES.filter((category) =>
         meal.categoryIds.includes(category.id)
