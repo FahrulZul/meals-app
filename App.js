@@ -5,10 +5,13 @@ import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { createDrawerNavigator } from "@react-navigation/drawer";
 import CategoriesScreen from "./screens/CategoriesScreen";
 import MealsOverviewScreen from "./screens/MealsOverviewScreen";
 import MealDetailsScreen from "./screens/MealDetailsScreen";
 import { colors } from "./utils/colors";
+import BookmarkScreen from "./screens/BookmarkScreen";
+import { Ionicons } from "@expo/vector-icons";
 
 export default function App() {
     const [fontsLoaded] = useFonts({
@@ -35,8 +38,9 @@ export default function App() {
     }
 
     const Stack = createNativeStackNavigator();
+    const Drawer = createDrawerNavigator();
 
-    const screenOptions = {
+    const stackScreenOptions = {
         headerTitleStyle: {
             fontFamily: "poppins-500",
             fontSize: 15,
@@ -47,17 +51,64 @@ export default function App() {
         },
     };
 
+    const drawerScreenOption = {
+        headerTitleStyle: {
+            fontFamily: "poppins-500",
+            fontSize: 15,
+        },
+        headerShadowVisible: false,
+        sceneContainerStyle: { backgroundColor: "white" },
+        drawerLabelStyle: { fontSize: 14, fontFamily: "poppins-500" },
+        drawerActiveTintColor: "white",
+        drawerActiveBackgroundColor: colors.lightPrimary,
+    };
+
+    const DrawerNavigator = () => {
+        return (
+            <Drawer.Navigator screenOptions={drawerScreenOption}>
+                <Drawer.Screen
+                    name="categoriesScreen"
+                    component={CategoriesScreen}
+                    options={{
+                        title: "Categories",
+                        drawerIcon: ({ color, size }) => (
+                            <Ionicons
+                                name="apps-outline"
+                                size={size}
+                                color={color}
+                            />
+                        ),
+                    }}
+                />
+                <Drawer.Screen
+                    name="bookmarkScreen"
+                    component={BookmarkScreen}
+                    options={{
+                        title: "Bookmarks",
+                        drawerIcon: ({ color, size }) => (
+                            <Ionicons
+                                name="ios-bookmarks-outline"
+                                size={size}
+                                color={color}
+                            />
+                        ),
+                    }}
+                />
+            </Drawer.Navigator>
+        );
+    };
+
     return (
         <>
             <StatusBar style="dark" />
             <View style={styles.rootContainer} onLayout={onLayoutRootView}>
                 <NavigationContainer>
-                    <Stack.Navigator screenOptions={screenOptions}>
+                    <Stack.Navigator screenOptions={stackScreenOptions}>
                         <Stack.Screen
-                            name="mealsCategories"
-                            component={CategoriesScreen}
+                            name="drawer"
+                            component={DrawerNavigator}
                             options={{
-                                title: "Categories",
+                                headerShown: false,
                             }}
                         />
                         <Stack.Screen

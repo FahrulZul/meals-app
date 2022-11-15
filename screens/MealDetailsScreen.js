@@ -1,16 +1,9 @@
 import { StatusBar } from "expo-status-bar";
 import { useLayoutEffect } from "react";
-import {
-    View,
-    Text,
-    Image,
-    StyleSheet,
-    Button,
-    ScrollView,
-} from "react-native";
+import { View, Text, Image, StyleSheet, ScrollView } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Ionicons } from "@expo/vector-icons";
-import BackButton from "../component/ui/Backbutton";
+import HeaderButton from "../component/ui/HeaderButton";
 import { MEALS } from "../data/dummy-data";
 import { CATEGORIES } from "../data/dummy-data";
 import { colors } from "../utils/colors";
@@ -29,10 +22,17 @@ const MealDetailsScreen = ({ route, navigation }) => {
             title: "",
             headerTransparent: true,
             headerLeft: () => (
-                <BackButton
+                <HeaderButton
+                    iconName="arrow-back-outline"
                     onPress={() =>
                         navigation.canGoBack() ? navigation.goBack() : null
                     }
+                />
+            ),
+            headerRight: () => (
+                <HeaderButton
+                    iconName="md-bookmark-outline"
+                    onPress={() => {}}
                 />
             ),
         });
