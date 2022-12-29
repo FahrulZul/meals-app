@@ -1,4 +1,4 @@
-import { FlatList, View } from "react-native";
+import { FlatList, Text } from "react-native";
 import CategoryGridTile from "../component/CategoryGridTile";
 import { CATEGORIES } from "../data/dummy-data";
 
@@ -21,13 +21,16 @@ const CategoriesScreen = ({ navigation }) => {
     };
 
     return (
-        <FlatList
-            data={CATEGORIES}
-            keyExtractor={(item) => item.id}
-            renderItem={renderCategoryItem}
-            numColumns={2}
-            overScrollMode="never"
-        />
+        <>
+            <Text>Hellow World!</Text>
+            <FlatList
+                data={CATEGORIES}
+                keyExtractor={(item) => item.id}
+                renderItem={renderCategoryItem}
+                numColumns={2}
+                overScrollMode="never"
+            />
+        </>
     );
 };
 
