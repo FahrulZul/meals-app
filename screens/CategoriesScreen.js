@@ -21,16 +21,13 @@ const CategoriesScreen = ({ navigation }) => {
     };
 
     return (
-        <>
-            <Text>Hellow World!</Text>
-            <FlatList
-                data={CATEGORIES}
-                keyExtractor={(item) => item.id}
-                renderItem={renderCategoryItem}
-                numColumns={2}
-                overScrollMode="never"
-            />
-        </>
+        <FlatList
+            data={CATEGORIES}
+            keyExtractor={(item) => item.id}
+            renderItem={renderCategoryItem}
+            numColumns={2}
+            overScrollMode="never"
+        />
     );
 };
 

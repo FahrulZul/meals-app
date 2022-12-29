@@ -14,6 +14,7 @@ import BookmarkScreen from "./screens/BookmarkScreen";
 import { Ionicons } from "@expo/vector-icons";
 import { Provider } from "react-redux";
 import { store } from "./store/redux/store";
+import SettingScreen from "./screens/SettingScreen";
 // import BookmarkContextProvider from "./store/context/bookmark-context";
 
 export default function App() {
@@ -91,6 +92,20 @@ export default function App() {
                         drawerIcon: ({ color, size }) => (
                             <Ionicons
                                 name="ios-bookmarks-outline"
+                                size={size}
+                                color={color}
+                            />
+                        ),
+                    }}
+                />
+                <Drawer.Screen
+                    name="settingScreen"
+                    component={SettingScreen}
+                    options={{
+                        title: "Settings",
+                        drawerIcon: ({ color, size }) => (
+                            <Ionicons
+                                name="settings-outline"
                                 size={size}
                                 color={color}
                             />
